@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 2.8)
 #declare a project
 project(HelloSLAM)
 
+# 设置编译模式
+set( CMAKE_BUILD_TYPE "Debug" )
 
 #add excutable programm
 # Sytax: add_excutable(programm_name source_file)
