@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/helloSALM.dir/hello_world.cpp.o  -o helloSALM -rdynamic 

@@ -1,6 +1,0 @@
-/home/siyuan/slam14/chapter2_pragramming_basic/build/CMakeFiles/edit_cache.dir
-/home/siyuan/slam14/chapter2_pragramming_basic/build/CMakeFiles/rebuild_cache.dir
-/home/siyuan/slam14/chapter2_pragramming_basic/build/CMakeFiles/helloSALM.dir
-/home/siyuan/slam14/chapter2_pragramming_basic/build/CMakeFiles/hello.dir
-/home/siyuan/slam14/chapter2_pragramming_basic/build/CMakeFiles/hello_shared.dir
-/home/siyuan/slam14/chapter2_pragramming_basic/build/CMakeFiles/useHello.dir
