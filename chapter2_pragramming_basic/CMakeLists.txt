@@ -20,3 +20,6 @@ add_executable(useHello useHello.cpp)
 # 将库文件链接到可执行程序上
 target_link_libraries(useHello hello_shared)
 
+# set the build type, using "Debug" model to use break point
+set(CMAKE_BUILD_TYPE "Debug")
+
