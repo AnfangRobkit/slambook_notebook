@@ -7,4 +7,4 @@ project(Motion_SLAM)
 include_directories("/usr/include/eigen3")
 
 add_executable(eigen_trial eigenMatrix.cpp)
-
+add_executable(eigen_geometry useGeometry.cpp)
