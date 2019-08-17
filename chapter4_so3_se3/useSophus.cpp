@@ -42,6 +42,8 @@ int main(int argc, char** argv){
     Sophus::SE3 SE3_Qt(q_, t);
     cout<<"SE3 from R,t\n"<<SE3_Rt.matrix()<<endl;
     cout<<"SE3 from Q,t\n"<<SE3_Qt<<endl;
+    // the SE3 is a matrix, but the output format is still vector.
+    // If you would like to use matrix form, remember to use .matrix()
     
     typedef Eigen::Matrix<double, 6, 1>Vector6d;
     Vector6d se3 = SE3_Rt.log();
