@@ -2,4 +2,7 @@ build/
 **/build/
 *.kdev4/
 *.kdev4
+*/.vscode
+*/./vscode/
+*/.vscode/
 
