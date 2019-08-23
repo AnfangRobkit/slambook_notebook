@@ -73,9 +73,9 @@ int main(int agrc, char** argv){
     // set the matrix block, the dim of the optimization is 3, dim of error is 1
     typedef g2o::BlockSolver<g2o::BlockSolverTraits<3,1> >Block;
     //old version of g2o where use pointer not unique_ptr
-    //Block::LinearSolverType* linearSolver = new g2o::LinearSolverDense<Block::PoseMatrixType>();
-    //Block* solver_ptr = new Block(linearSolver);
-    //g2o::OptimizationAlgorithmLevenberg* solver=new g2o::OptimizationAlgorithmLevenberg(solver_ptr);
+//     Block::LinearSolverType* linearSolver = new g2o::LinearSolverDense<Block::PoseMatrixType>();
+//     Block* solver_ptr = new Block(linearSolver);
+//     g2o::OptimizationAlgorithmLevenberg* solver=new g2o::OptimizationAlgorithmLevenberg(solver_ptr);
     
     std::unique_ptr<Block::LinearSolverType> linearSolver(new g2o::LinearSolverDense<Block::PoseMatrixType>());
     std::unique_ptr<Block> solver_ptr ( new Block ( std::move(linearSolver))); 
