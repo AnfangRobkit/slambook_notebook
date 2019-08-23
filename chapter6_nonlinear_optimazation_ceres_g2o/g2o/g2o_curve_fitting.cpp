@@ -31,13 +31,13 @@ public:
     virtual bool write( ostream& out) const {}
 };
 // define the edge of the graph
-// dim of the observation, data type,vertex
+// dim of the observation, data type,vertex (variable to be optimizated)
 class CurveFittingEdge:public g2o::BaseUnaryEdge<1, double, CurveFittingVertex>
 {
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     CurveFittingEdge(double x): BaseUnaryEdge(), _x(x){}
-    //calclate the error
+    //to compute the error between the measurement and the values drawm from the vertex
     void computeError()
     {
         const CurveFittingVertex* v=static_cast<const CurveFittingVertex*> (_vertices[0]);
@@ -50,7 +50,14 @@ public:
      double _x; // y=measurement
 };
 
-
+/*
+- _measurement：存储观测值
+-_error：存储computeError() 函数计算的误差
+-_vertices[]：存储顶点信息，比如二元边的话，_vertices[] 的大小为2，存储顺序和调用setVertex(int, vertex) 是设定的int 有关（0 或1）
+-setId(int)：来定义边的编号（决定了在H矩阵中的位置）
+-setMeasurement(type) 函数来定义观测值
+-setVertex(int, vertex) 来定义顶点
+-setInformation() 来定义协方差矩阵的逆*/
 
 int main(int agrc, char** argv){
     double a=1.0, b=2.0, c=1.0;
