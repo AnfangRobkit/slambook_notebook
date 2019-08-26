@@ -8,7 +8,7 @@ using namespace std;
 using namespace cv;
 
 void find_feature_matches( const Mat& img_1, const Mat& img_2, std::vector<KeyPoint>& keypoints_1,
-std::vector<KeyPoint>& keypoints_2, std::vector<DMatch>matches);
+std::vector<KeyPoint>& keypoints_2, std::vector<DMatch>& matches);
 
 void pose_estimation_2d2d(std::vector<KeyPoint>& keypoints_1,
 std::vector<KeyPoint>& keypoints_2, std::vector<DMatch>matches, Mat& R, Mat& t );
@@ -22,14 +22,14 @@ int main( int argc, char** argv)
         cout<<"usage: pose_estimation_2d2d img1 img2"<<endl;
         return 1;
     }
-    Mat img_1 = imread(argv[1], CV_LOAD_IMAGE_COLOR);
-    Mat img_2 = imread(argv[2], CV_LOAD_IMAGE_COLOR);
+    Mat img_1 = imread(argv[1], cv::IMREAD_COLOR);
+    Mat img_2 = imread(argv[2], cv::IMREAD_COLOR);
 
     vector<KeyPoint> keypoints_1, keypoints_2;
     vector<DMatch> matches;
 
     find_feature_matches(img_1, img_2, keypoints_1, keypoints_2, matches);
-    cout<<" The number of "<<matches.size()<<" have been found"<<endl;
+    cout<<" The number of "<<matches.size()<<" matches have been found"<<endl;
 
     // Estimate the motion between two images
     Mat R,t;
@@ -57,11 +57,11 @@ int main( int argc, char** argv)
     return 0;
 }
 void find_feature_matches( const Mat& img_1, const Mat& img_2, std::vector<KeyPoint>& keypoints_1,
-std::vector<KeyPoint>& keypoints_2, std::vector<DMatch>matches)
+std::vector<KeyPoint>& keypoints_2, std::vector<DMatch>& matches)
 {
     Mat descriptors_1, descriptors_2;
-    Ptr<FeatureDetector> detector = ORB::create("ORB");
-    Ptr<DescriptorExtractor>descriptors = ORB::create("ORB");
+    Ptr<FeatureDetector> detector = cv::ORB::create();
+    Ptr<DescriptorExtractor>descriptors = cv::ORB::create();
     Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create("BruteForce-Hamming");
 
     // First steo: Oriented Fast Corner Detection
@@ -95,8 +95,10 @@ std::vector<KeyPoint>& keypoints_2, std::vector<DMatch>matches)
         if(match[i].distance<=max(2*min_dist, 30.0))
         {
             matches.push_back(match[i]);
+            //cout<<"find +1"<<endl;
         }
     }
+    
 }
 
 Point2d pixel2cam(const Point2d &p, const Mat &K) 
@@ -118,13 +120,18 @@ std::vector<KeyPoint>& keypoints_2, std::vector<DMatch>matches, Mat& R, Mat& t )
     vector<Point2f> points1;
     vector<Point2f> points2;
 
+    // cout<<matches.size()<<endl;
+
     for(int i=0; i<(int) matches.size();i++)
     {
         points1.push_back(keypoints_1[matches[i].queryIdx].pt);
         points2.push_back(keypoints_2[matches[i].trainIdx].pt);
     }
+
+    // cout<<points1<<"  "<<points2<<endl;
+
     Mat fundamental_matrix;
-    fundamental_matrix = findFundamentalMat(points1,points2,CV_FM_8POINT);
+    fundamental_matrix = findFundamentalMat(points1,points2,FM_8POINT);
     cout<<"fundamental matrix is "<<endl<<fundamental_matrix<<endl;
 
     Point2d principal_point(325.1, 249.7); 
