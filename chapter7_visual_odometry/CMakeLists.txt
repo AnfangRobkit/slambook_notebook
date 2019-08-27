@@ -4,7 +4,7 @@ project(vo1_2d2d)
 set(CMAKE_BUILD_TYPE "Realse")
 set(CMAKE_CXX_FLAGS "-std=c++11 -o3")
 
-find_package( OpenCV 4.0.0 REQUIRED )
+find_package( OpenCV  REQUIRED )
 
 include_directories( 
     ${OpenCV_INCLUDE_DIRS} )
@@ -12,3 +12,6 @@ include_directories(
 
 add_executable( pose_estimation_2d2d pose_estimation_2d2d.cpp )
 target_link_libraries( pose_estimation_2d2d ${OpenCV_LIBS} )
+
+add_executable(triangulation triangulation.cpp)
+target_link_libraries(triangulation ${OpenCV_LIBS})
