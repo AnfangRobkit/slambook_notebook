@@ -185,21 +185,3 @@ void triangulation(std::vector<KeyPoint>& keypoints_1,
         points.push_back( p );
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
